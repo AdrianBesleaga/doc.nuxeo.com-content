@@ -2,24 +2,24 @@
 title: 'HOWTO: Customize Slots'
 description: Learn how to use Nuxeo Slots with Web UI.
 review:
-    comment: ''
-    date: '2017-12-15'
-    status: ok
+  comment: ''
+  date: '2017-12-15'
+  status: ok
 toc: true
 details:
-    howto:
-        excerpt: Learn how to use Nuxeo Slots with Web UI.
-        level: Advanced
-        tool: code
-        topics: UIElements
+  howto:
+    excerpt: Learn how to use Nuxeo Slots with Web UI.
+    level: Advanced
+    tool: code
+    topics: UIElements
 labels:
-    - lts2016-ok
-    - nuxeo-web-ui
-    - gbarata
-    - extension
-    - nuxeo-slot
-    - nuxeo-slot-content
-    - lts2017-ok
+  - lts2016-ok
+  - nuxeo-web-ui
+  - gbarata
+  - extension
+  - nuxeo-slot
+  - nuxeo-slot-content
+  - lts2017-ok
 tree_item_index: 900
 ---
 ## Concept
@@ -52,7 +52,7 @@ You can see that `my-element` has its `my-element-property` bound to `aPropertyF
 
 {{#> callout type='info' }}
 - Note that every slot on Web UI exposes a property named `user` by default, which contains the current user object.
-{{/callout}}
+  {{/callout}}
 
 For a better understanding, please refer to the [DOCUMENT_ACTIONS](#document_actions) and where we concretely detail how additional document actions are added by the [Nuxeo Drive]({{page version='' space='client-apps' page='nuxeo-drive'}}) addon.
 
@@ -97,6 +97,11 @@ Here are the `nuxeo-slots` available in the Nuxeo Web UI.
     <td colspan="1">Additional actions/views for results</td>
     <td colspan="1">![]({{file name='RESULTS_ACTIONS.png'}} ?w=100,border=true)</td>
   </tr>
+   <tr>
+    <td colspan="1">[TRASH_RESULTS_SELECTION_ACTIONS](#trash_result_selection_actions)</td>
+    <td colspan="1">Select/Delete Trash files</td>
+    <td colspan="1">![]({{file name='TRASH_RESULTS_SELECTION_ACTIONS.png'}} ?w=100,border=true)</td>
+  </tr>
   <tr>
     <td colspan="1">[ADMINISTRATION_MENU](#administration_menu) <br/> [ADMINISTRATION_PAGES](#administration_menu)</td>
     <td colspan="1">Additional Administration menu</td>
@@ -116,6 +121,11 @@ Here are the `nuxeo-slots` available in the Nuxeo Web UI.
     <td colspan="1">[DOCUMENT_CREATE_ACTIONS](#document_create_actions)</td>
     <td colspan="1">Additional document creation actions</td>
     <td colspan="1">![]({{file name='DOCUMENT_CREATE_ACTIONS.png'}} ?w=100,border=true)</td>
+  </tr>
+     <tr>
+    <td colspan="1">[PUBLISH_PAGES](#publish_pages)</td>
+    <td colspan="1">Publish pages dialog box</td>
+    <td colspan="1">![]({{file name='PUBLISH_PAGES.png'}} ?w=100,border=true)</td>
   </tr>
   <tr>
     <td colspan="1">[CREATE_POPUP_ITEMS](#create_popup_items)<br/>
@@ -212,7 +222,7 @@ The `DOCUMENT_ACTIONS` has therefore the following:
 | `clipboard` | The application clipboard content. |
 
 {{#> callout type='info' }}
-  Discover how to [insert a new user action on Web UI with Studio Designer]({{page version='' space='nxdoc' page='how-to-insert-user-action'}}).
+Discover how to [insert a new user action on Web UI with Studio Designer]({{page version='' space='nxdoc' page='how-to-insert-user-action'}}).
 {{/callout}}
 
 #### DOCUMENT_VIEWS_ITEMS{{> anchor 'document_view_items'}}
@@ -266,7 +276,7 @@ This slot is available on a current document that has attached blobs. Default ac
 
 {{#> callout type='note' }}
 - Until Web-UI version `0.9`, this slot was called `BROWSE_ACTIONS` and its properties may have changed.
-{{/callout}}
+  {{/callout}}
 
 This slot is displayed when selecting one or more children documents of a folderish current document. It provides bulked actions on the selection such as *Add to collection*, *Delete selected items*, etc.
 
@@ -289,7 +299,7 @@ This slot is displayed when selecting one or more children documents of a folder
 
 {{#> callout type='note' }}
 - Until Web-UI version `0.9`, this slot was called `DOCUMENT_LISTING_ACTIONS` and its properties may have changed.
-{{/callout}}
+  {{/callout}}
 
 This slot allows to provide additional action buttons on folderish documents or results page such as *grid view*, *table view*, etc.
 
@@ -307,6 +317,25 @@ This slot allows to provide additional action buttons on folderish documents or 
 | `columns`       | Array with the available table columns.                                                                                  |
 | `document`      | The current document.                                                                                                    |
 | `user`          | The current user.                                                                                                        |
+
+#### TRASH_RESULTS_SELECTION_ACTIONS {{> anchor 'trash_result_selection_actions'}}
+
+This slot is displayed when selecting one or more children documents of a folderish current document. It helps to trigger an action to delete permanently and restore trash files.
+
+![]({{file name='TRASH_RESULTS_SELECTION_ACTIONS.png'}} ?w=400,border=true)
+
+**Slot Model Properties**
+
+| Property        | Description                                  |
+| :-------------- | :------------------------------------------- |
+| `baseUrl`       | The base URL of the Nuxeo server             |
+| `nxProvider`    | The name of the page provider                |
+| `displayMode`   | The current display mode (e.g., grid, table) |
+| `selectedItems` | Array of selected documents.                 |
+| `items`         | Array of all loaded documents.               |
+| `columns`       | Array with the available table columns       |
+| `document`      | The current document                         |
+| `user`          | The current user.                            |
 
 ### Main Application Menu Slots
 
@@ -392,6 +421,22 @@ The `DRAWER_PAGES` allows you to add new items to the main left drawer menu (see
 | `clipboard`         | The clipboard element.                                   |
 | `userWorkspace`     | The user workspace path.                                 |
 | `user`              | The current user.                                        |
+
+### Document Publishing
+
+#### PUBLISH_PAGES{{> anchor 'publish_pages'}}
+
+This slot displays actions when click on to right menu bar **Publish Document** button to pulish a documents.
+
+![]({{file name='PUBLISH_PAGES.png'}} ?w=400,border=true)
+
+**Slot Model Properties**
+
+| Property   | Description                                  |
+| :--------- | :------------------------------------------- |
+| `document` | The current document.                        |
+| `i18n`     | The i18n function helper to localize labels. |
+| `user`     | The current user.                            |
 
 ### Document Creation
 
